@@ -10,11 +10,21 @@ public class Email {
         this.password = "Accio@123";
     }
 
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getEmailId() {
+
         return emailId;
     }
 
     public String getPassword() {
+
         return password;
     }
 
@@ -25,5 +35,41 @@ public class Email {
         // 3. It contains at least one lowercase letter
         // 4. It contains at least one digit
         // 5. It contains at least one special character. Any character apart from alphabets and digits is a special character
+         boolean checkCondition=checkNewPasswordCondition(newPassword);
+         if(this.password.equals(oldPassword) && checkCondition){
+             this.password=newPassword;
+         }
+
     }
+
+
+    private boolean checkNewPasswordCondition( String newPassword){
+        boolean checkUpperCase=false;
+        boolean checkLowerCase=false;
+        boolean checkDigit=false;
+        boolean checkSpecialCharacter=false;
+        boolean checkLength=false;
+        for(int i=0;i<newPassword.length();i++){
+            char ch=newPassword.charAt(i);
+            if(Character.isUpperCase(ch)){
+
+                checkUpperCase=true;
+            } else if(Character.isLowerCase(ch)){
+                checkLowerCase=true;
+            } else if (Character.isDigit(ch)){
+                checkDigit=true;
+
+            } else if(!Character.isDigit(ch) && !Character.isLetter(ch)){
+                checkSpecialCharacter=true;
+            }
+        }
+        if(newPassword.length()>=8)
+            checkLength=true;
+
+        if(checkUpperCase && checkLowerCase && checkDigit && checkSpecialCharacter && checkLength)
+            return true;
+
+        return false;
+    }
+
 }
